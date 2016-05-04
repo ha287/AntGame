@@ -3,79 +3,53 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package group16.antgame.tests.ant;
+package group16.antgame.ant;
 
-import group16.antgame.ant.AntBrain;
-import group16.antgame.ant.AntBrainParseException;
-import group16.antgame.ant.Condition;
-import group16.antgame.ant.LinearDirection;
-import group16.antgame.ant.SenseDirection;
-import group16.antgame.ant.instructions.Drop;
-import group16.antgame.ant.instructions.Flip;
 import group16.antgame.ant.instructions.Instruction;
-import group16.antgame.ant.instructions.Move;
-import group16.antgame.ant.instructions.Sense;
-import group16.antgame.ant.instructions.Turn;
-import group16.antgame.ant.instructions.Unmark;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import static org.junit.Assert.assertTrue;
-import org.junit.Before;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author Dan
+ * @author Harry
  */
 public class AntBrainTest {
+    private AntBrain Brain;
+    private AntBrain testBrain;
     
-    private AntBrain ab;
-    
-    
-    public void setUpTest1() throws IOException, FileNotFoundException, AntBrainParseException {
-        File f = new File("samples/ant/sample1.ant");
-        ab = new AntBrain(f);
+    public AntBrainTest() {
+        
+        File file = new File("Sample.ant");
+        
+        try {
+            Brain = new AntBrain(file);
+        } catch (IOException | UndefinedStateException | UnsupportedSenseDirectionException | UnsupportedConditionException | NotEnoughParametersException | MarkerOutOfBoundsException | InvalidIntegerException | UnsupportedLinearDirectionException ex) {
+            Logger.getLogger(AntBrainTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            testBrain = new AntBrain(file);
+        } catch (IOException | UndefinedStateException | UnsupportedSenseDirectionException | UnsupportedConditionException | NotEnoughParametersException | MarkerOutOfBoundsException | InvalidIntegerException | UnsupportedLinearDirectionException ex) {
+            Logger.getLogger(AntBrainTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    public void setUpTest2() throws IOException, FileNotFoundException, AntBrainParseException {
-        File f = new File("samples/ant/sample2.ant");
-        ab = new AntBrain(f);
-    }
-    
+
     /**
-     * Tests the finite state machine in the samples/ant/sample1.ant file.
+     * Test of getStates method, of class AntBrain.
      */
     @Test
-    public void test1() throws IOException, FileNotFoundException, AntBrainParseException {
-        setUpTest1();
-        assertTrue(ab.getStates().size() == 3);
-        Sense state0 = (Sense) ab.getStates().get(0);
-        assertTrue(state0.getDir() == SenseDirection.Ahead);
-        assertTrue(state0.getSt1() == 1);
-        assertTrue(state0.getSt2() == 2);
-        assertTrue(state0.getCond() == Condition.Friend);
-        Move state1 = (Move) ab.getStates().get(1);
-        assertTrue(state1.getSt1() == 0);
-        assertTrue(state1.getSt2() == 0);
-        Drop state2 = (Drop) ab.getStates().get(2);
-        assertTrue(state2.getSt() == 1);
-    }
-    
-    @Test
-    public void test2() throws IOException, FileNotFoundException, AntBrainParseException {
-        setUpTest2();
-        assertTrue(ab.getStates().size() == 401);
-        Unmark state65 = (Unmark) ab.getStates().get(65);
-        assertTrue(state65.getMarker() == 4);
-        assertTrue(state65.getSt() == 0);
-        Turn state92 = (Turn) ab.getStates().get(92);
-        assertTrue(state92.getDir() == LinearDirection.Right);
-        assertTrue(state92.getSt() == 0);
-        Flip state336 = (Flip) ab.getStates().get(336);
-        assertTrue(state336.getP() == 4);
-        assertTrue(state336.getSt1() == 395);
-        assertTrue(state336.getSt2() == 337);
+    public void testGetStates() {
+        
+        ArrayList<Instruction> expResult = testBrain.getStates();
+        ArrayList<Instruction> result = Brain.getStates();
+     
+        assertFalse(expResult.equals(result) );
+        
     }
     
 }

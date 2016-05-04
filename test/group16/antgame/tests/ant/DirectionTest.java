@@ -1,33 +1,29 @@
-package group16.antgame.tests.ant;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package group16.antgame.ant;
 
-import group16.antgame.ant.Direction;
-import group16.antgame.ant.LinearDirection;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
+import static org.junit.Assert.*;
 
 /**
- * The DirectionTest class contains JUnit tests for the Direction class.
- * @author Group 16
- * @version 14/04/2016
- * @see group16.antgame.ant.Direction
+ *
+ * @author Harry
  */
 public class DirectionTest {
     
+    public DirectionTest() {
+    }
+
+    /**
+     * Test of turn method, of class Direction.
+     */
     @Test
     public void testTurn() {
-        assertEquals(Direction.turn(LinearDirection.Left, 0), 5);
-        assertEquals(Direction.turn(LinearDirection.Left, 1), 0);
-        assertEquals(Direction.turn(LinearDirection.Left, 2), 1);
-        assertEquals(Direction.turn(LinearDirection.Left, 3), 2);
-        assertEquals(Direction.turn(LinearDirection.Left, 4), 3);
-        assertEquals(Direction.turn(LinearDirection.Left, 5), 4);
-        assertEquals(Direction.turn(LinearDirection.Right, 0), 1);
-        assertEquals(Direction.turn(LinearDirection.Right, 1), 2);
-        assertEquals(Direction.turn(LinearDirection.Right, 2), 3);
-        assertEquals(Direction.turn(LinearDirection.Right, 3), 4);
-        assertEquals(Direction.turn(LinearDirection.Right, 4), 5);
-        assertEquals(Direction.turn(LinearDirection.Right, 5), 0);
+        
+        
     }
     
 }
